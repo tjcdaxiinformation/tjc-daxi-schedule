@@ -14,34 +14,34 @@
     }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen pb-12">
+<body class="bg-slate-50 text-slate-800 min-h-screen pb-24">
 
-  <!-- 頂部精緻導覽欄與經節 -->
+  <!-- 頂部導覽欄與每月分享經節 -->
   <header class="bg-gradient-to-r from-blue-900 to-indigo-950 text-white shadow-md relative overflow-hidden">
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.1),transparent_50%)]"></div>
     <div class="max-w-md mx-auto px-4 py-6 relative z-10">
       <div class="flex items-center space-x-2 mb-2">
-        <span id="header-badge" class="bg-amber-500 text-slate-900 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">--年--月份</span>
+        <span id="header-badge" class="bg-amber-500 text-slate-900 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">115年7月份</span>
         <span class="text-xs text-blue-200">真耶穌教會大溪教會</span>
       </div>
       <h1 id="header-title" class="text-xl font-black tracking-wide leading-tight text-amber-100">
-        TJC 大溪教會<br/>事工安排表快速搜尋表單
+        TJC 大溪教會<br/>事工快速搜尋與分享表單
       </h1>
       
       <!-- 經節卡片 -->
       <div class="mt-4 bg-white/10 backdrop-blur-sm border border-white/15 rounded-lg p-3">
         <p id="header-verse" class="text-xs text-amber-200 italic font-light">
-          「載入中...」
+          「凡你手所當做的事，要盡力去做。」
         </p>
-        <p id="header-verse-src" class="text-[10px] text-right text-slate-300 mt-1">--</p>
+        <p id="header-verse-src" class="text-[10px] text-right text-slate-300 mt-1">—— 傳道書 9:10</p>
       </div>
     </div>
   </header>
 
-  <!-- 行動端主容器 -->
+  <!-- 行動端主要容器 -->
   <main class="max-w-md mx-auto px-4 mt-4 space-y-5">
 
-    <!-- 區塊一：首頁註記 - 來訪教會單位與人數 -->
+    <!-- 區塊一：來訪團契看板 -->
     <section class="bg-white rounded-2xl shadow-sm border border-slate-100 p-4 relative overflow-hidden">
       <div class="absolute top-0 right-0 w-24 h-24 bg-rose-50 rounded-full -mr-8 -mt-8 -z-10 opacity-60"></div>
       <div class="flex items-center space-x-2 mb-3">
@@ -51,9 +51,9 @@
         <h2 class="text-sm font-bold text-slate-800">本月來訪教會與用餐註記</h2>
       </div>
       
-      <!-- 來訪教會卡片清單 (動態生成) -->
+      <!-- 來訪教會動態清單 -->
       <div id="visiting-churches-list" class="space-y-2.5">
-        <!-- 這裡會由 JS 自動填入 -->
+        <!-- 由 JS 自動從 CONFIG 填入 -->
       </div>
     </section>
 
@@ -91,11 +91,11 @@
           </button>
         </div>
 
-        <!-- 常用同工快捷分類點選區 (動態生成) -->
+        <!-- 常用同工快捷分類點選區 -->
         <div class="mt-4">
           <span class="text-[11px] font-bold text-slate-400 block mb-2">常用同工快速點選：</span>
           <div id="quick-search-roles" class="space-y-3">
-            <!-- 這裡會由 JS 自動根據 CONFIG 載入按鈕 -->
+            <!-- 由 JS 自動根據 CONFIG 載入按鈕 -->
           </div>
         </div>
       </div>
@@ -119,7 +119,7 @@
             </h3>
             <button onclick="copyMySchedule()" class="text-xs text-blue-600 hover:text-blue-800 font-bold flex items-center space-x-1 bg-blue-50 px-2.5 py-1.5 rounded-lg active:scale-95 transition-all">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m-5 4h5m-5 4h5m-2 5h2"></path></svg>
-              <span>一鍵複製班表</span>
+              <span>一鍵複製個人全月服事表</span>
             </button>
           </div>
           
@@ -157,7 +157,7 @@
     <!-- 頁籤三：教會近期活動 -->
     <section id="content-events" class="hidden space-y-4">
       
-      <!-- 活動列表（首頁近期活動） -->
+      <!-- 活動列表 -->
       <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-4">
         <div class="flex items-center space-x-2 mb-3">
           <div class="bg-amber-100 text-amber-600 p-1.5 rounded-lg">
@@ -206,38 +206,34 @@
 
   <script>
     /*************************************************************************
-     * 💡 下個月（8月份）更動時，您「只需要」修改下面這個 CHURCH_CONFIG 物件！
-     * 您不需修改任何 HTML 結構或程式邏輯，系統會自動幫您全部渲染。
+     * 💡 100% 精準對照 Word 原創事工表資料 (115年7月份)
      *************************************************************************/
-    const CHURCH_CONFIG = {
-      year: "115",        // 民國年份
-      month: "7",         // 月份
-      bibleVerse: {       // 每月分享經節
+    let CHURCH_CONFIG = {
+      year: "115",
+      month: "7",
+      bibleVerse: {
         text: "「凡你手所當做的事，要盡力去做。」",
-        source: "（傳道書 9:10）"
+        source: "—— 傳道書 9:10"
       },
-      // 本月來訪教會與用餐註記 (若無則留空陣列 [])
       visitingChurches: [
         { name: "豐原教會", group: "中堅迦勒團契", time: "7/11 (六) 安息日上午", count: 37, tagClass: "bg-rose-100 text-rose-700" },
         { name: "沙鹿教會", group: "青教組", time: "7/25 (六) 安息日下午", count: 15, tagClass: "bg-indigo-100 text-indigo-700" },
         { name: "北埔教會", group: "中餐接待", time: "7/27 (一) 中午用餐", count: 80, tagClass: "bg-emerald-100 text-emerald-700" }
       ],
-      // 常用同工快捷搜尋按鈕 (可任意增加或刪除同工姓名，會自動排版)
       quickSearchGroups: [
         {
           title: "⛪ 負責人及各股：",
-          workers: ["王鴻志", "陳義道", "林茜葦", "鍾霖恩", "梁秀娟", "張蓉惠", "楊忠生", "黃琬珊"]
+          workers: ["王鴻志", "陳義道", "林茜葦", "林酋葦", "鍾霖恩", "梁秀娟", "張蓉惠", "楊忠生", "黃琬珊"]
         },
         {
           title: "🎵 領會/領詩/司琴/音控：",
-          workers: ["同恩", "可芩", "哲貞", "冉憶", "文聰", "翠玉", "亦豪", "翔恩", "明", "光", "聰琳", "曉玲"]
+          workers: ["同恩", "可芩", "哲貞", "冉憶", "文聰", "翠玉", "亦豪", "翔恩", "明", "光", "聰琳", "曉玲", "高亦豪", "楊凱恩", "陳正亮"]
         },
         {
           title: "🍲 炊事與接待：",
-          workers: ["陳木群", "素甜", "靜美", "以真", "麗華", "幸子", "陳箴", "秀花", "喜鵲", "夢凡", "陳微慎"]
+          workers: ["陳木群", "素甜", "靜美", "以真", "麗華", "幸子", "陳箴", "秀花", "喜鵲", "夢凡", "陳微慎", "杜建明", "立學"]
         }
       ],
-      // 聯絡簿名單 (按鈕直接呼叫撥號功能)
       contacts: [
         { title: "宣道股", name: "王鴻志", phone: "0916-336-821" },
         { title: "駐堂傳道", name: "陳義道", phone: "0934-263-266" },
@@ -248,49 +244,72 @@
         { title: "事務股", name: "楊忠生", phone: "0918-327-684" },
         { title: "出納股", name: "黃琬珊", phone: "0953-227-125" }
       ],
-      // 原始事工安排資料 (每日安排)
       scheduleData: [
         {
-          date: "7/1 (三) - 7/2 (四)",
+          date: "7/1 (三)",
           dayType: "weekday",
           duties: {
             "主要行程": "協助國中班學靈會炊事 (崎頂)",
-            "配合同工": "李永賢、同恩、茜葦、文聰、翠玉、可芩"
+            "領會者": "李永賢",
+            "領詩": "同恩",
+            "司琴": "茜葦",
+            "接待一樓": "文聰",
+            "接待二樓": "翠玉",
+            "一樓二樓音控": "可芩",
+            "當值值日": "資訊股"
           },
-          personnel: ["李永賢", "同恩", "林茜葦", "林文聰", "談翠玉", "林可芩", "文聰", "翠玉", "可芩", "茜葦"],
-          rawText: "李永賢 同恩 茜葦 崎頂 資訊 文聰 翠玉 可芩 協助國中班學靈會炊事 崎頂"
+          personnel: ["李永賢", "同恩", "茜葦", "林茜葦", "林文聰", "文聰", "翠玉", "談翠玉", "可芩", "林可芩"],
+          rawText: "李永賢 同恩 茜葦 文聰 翠玉 可芩 資訊 崎頂"
+        },
+        {
+          date: "7/2 (四)",
+          dayType: "weekday",
+          duties: {
+            "主要行程": "協助國中班學靈會炊事 (崎頂)"
+          },
+          personnel: ["李永賢", "同恩", "林茜葦", "茜葦", "林文聰", "文聰", "談翠玉", "翠玉", "林可芩", "可芩"],
+          rawText: "協助國中班學靈會炊事 崎頂"
         },
         {
           date: "7/3 (五)",
           dayType: "weekday",
           duties: {
             "傳道": "高亦豪",
-            "接待": "曉玲、琬珊",
-            "領會者": "可芩",
-            "領詩": "哲貞",
+            "領會者": "高亦豪",
+            "領詩": "可芩",
             "司琴": "哲貞",
+            "接待一樓": "曉玲",
+            "接待二樓": "琬珊",
             "一樓二樓音控": "崎頂派員",
             "當值值日": "教育股",
-            "聯絡行程": "王鴻志"
+            "主要行程": "王鴻志 (行程-崎頂)"
           },
-          personnel: ["高亦豪", "曉玲", "琬珊", "可芩", "哲貞", "王鴻志", "黃琬珊", "林可芩"],
-          rawText: "高亦豪 曉玲 琬珊 可芩 哲貞 崎頂 教育 王鴻志 曉玲琬珊 可芩哲貞"
+          personnel: ["高亦豪", "亦豪", "可芩", "林可芩", "哲貞", "曉玲", "琬珊", "黃琬珊", "王鴻志", "鴻志"],
+          rawText: "高亦豪 可芩 哲貞 曉玲 琬珊 鴻志 教育 崎頂"
         },
         {
           date: "7/4 (六) 安息日",
           dayType: "sabbath",
           duties: {
-            "禱告會": "上午 9:30~50 / 下午 1:30~50",
-            "領會與人員": "同恩、瑞靈、真、瑞祺、翔恩、明",
-            "教牧值日": "翔恩",
-            "接待領讀": "光、秀花、陳正亮",
-            "午餐愛餐": "靜美、以真、麗華",
-            "值日與事務": "夢凡、事務股、喜鵲、光",
-            "帶領禱告": "孝偉、同恩、可芩 (詩篇100)",
-            "領讀謝飯": "翔恩、翠玉、立學、鴻霖"
+            "禱告會": "上午 9:30~50 / 下午 1:30~50 (讀經: 詩篇100)",
+            "帶領禱告": "同恩 (詩篇100)",
+            "領讀": "可芩",
+            "謝飯": "孝偉",
+            "領會者": "陳正亮",
+            "領詩": "同恩",
+            "司琴": "瑞褀",
+            "接待一樓": "瑞靈",
+            "接待二樓": "翔恩",
+            "一樓二樓音控": "真光、明光",
+            "當值值日": "教牧、出納、事務 (秀花、喜鵲)",
+            "傳道/配合": "翔恩、夢凡",
+            "愛餐午餐": "靜美、以真、麗華",
+            "晚餐": "幸子、陳箴",
+            "插花": "素甜",
+            "主要行程": "崎頂"
           },
-          personnel: ["同恩", "瑞靈", "瑞祺", "翔恩", "明", "光", "秀花", "陳正亮", "夢凡", "喜鵲", "孝偉", "可芩", "鴻霖", "靜美", "以真", "麗華", "幸子", "陳箴", "翠玉", "立學", "談翠玉", "林可芩"],
-          rawText: "同恩 瑞靈 瑞祺 翔恩 明 夢凡 喜鵲 光 孝偉 同恩 可芩 翔恩 鴻霖 靜美 以真 麗華 幸子 陳箴 翠玉 立學"
+          personnel: ["陳正亮", "同恩", "瑞褀", "瑞祺", "瑞靈", "翔恩", "真光", "明光", "秀花", "喜鵲", "夢凡", "胡夢凡", "孝偉", "可芩", "林可芩", "靜美", "以真", "麗華", "幸子", "陳箴", "素甜"],
+          rawText: "陳正亮 同恩 瑞褀 瑞靈 翔恩 真光 明光 秀花 喜鵲 翔恩夢凡 教牧 事務 崎頂 靜美 以真 麗華 幸子 陳箴 素甜 孝偉 可芩"
         },
         {
           date: "7/5 (日)",
@@ -299,27 +318,30 @@
             "主要行程": "家庭團契：屋簷下的時光 (崎頂)"
           },
           personnel: [],
-          rawText: "崎頂 家庭團契 屋簷下的時光"
+          rawText: "家庭團契:屋簷下的時光 崎頂"
         },
         {
           date: "7/6 (一)",
           dayType: "weekday",
           duties: {
             "傳道": "翔恩",
-            "接待": "陳木群",
-            "領會者": "蓉惠",
-            "領詩": "聰琳",
-            "司琴": "曉玲",
-            "音控/值日": "崎頂 / 茜葦 (宣道股)"
+            "領會者": "陳木群",
+            "領詩": "翔恩",
+            "司琴": "蓉惠",
+            "接待一樓": "聰琳",
+            "接待二樓": "曉玲",
+            "一樓二樓音控": "茜葦",
+            "當值值日": "宣道股",
+            "主要行程": "崎頂"
           },
-          personnel: ["翔恩", "陳木群", "蓉惠", "張蓉惠", "聰琳", "曉玲", "茜葦", "林茜葦"],
-          rawText: "翔恩 陳木群 蓉惠 聰琳 曉玲 崎頂 茜葦 宣道"
+          personnel: ["陳木群", "翔恩", "蓉惠", "張蓉惠", "聰琳", "曉玲", "茜葦", "林茜葦"],
+          rawText: "陳木群 翔恩 蓉惠 聰琳 曉玲 茜葦 宣道 崎頂"
         },
         {
           date: "7/7 (二)",
           dayType: "weekday",
           duties: {
-            "今日行程": "宣道訪問 / 傳道休假"
+            "主要行程": "宣道訪問 / 傳道休假"
           },
           personnel: [],
           rawText: "訪問 休假"
@@ -329,135 +351,191 @@
           dayType: "weekday",
           duties: {
             "傳道": "小嬌",
-            "接待": "楊凱恩",
-            "領會者": "同恩",
-            "領詩": "牧言",
-            "一二樓音控": "亦豪",
-            "司琴": "教育股、梁娟",
-            "今日行程": "復興教會"
+            "領會者": "楊凱恩",
+            "領詩": "同恩",
+            "司琴": "牧言",
+            "接待一樓": "小嬌",
+            "接待二樓": "梁娟",
+            "一樓二樓音控": "亦豪",
+            "當值值日": "教育股",
+            "主要行程": "復興"
           },
-          personnel: ["小嬌", "楊凱恩", "同恩", "牧言", "梁娟", "亦豪", "高亦豪", "梁秀娟"],
-          rawText: "小嬌 楊凱恩 同恩 牧言 教育 梁娟 亦豪 復興"
+          personnel: ["楊凱恩", "凱恩", "同恩", "牧言", "小嬌", "梁娟", "亦豪", "高亦豪"],
+          rawText: "楊凱恩 同恩 牧言 小嬌 梁娟 亦豪 教育 復興"
         },
         {
           date: "7/9 (四)",
           dayType: "weekday",
           duties: {
-            "宣道訪問": "陳微慎、杜芯 -> 鍾霖恩執事宅",
+            "主要行程": "宣道訪問（陳微慎、杜芯 往 鍾霖恩執事宅）",
             "今日晚餐": "素甜提供",
-            "地點": "復興教會"
+            "地點": "復興"
           },
           personnel: ["陳微慎", "杜芯", "鍾霖恩", "素甜"],
-          rawText: "陳微慎 杜芯 鍾霖恩 復興 素甜"
+          rawText: "陳微慎 杜芯 鍾霖恩執事 宅 復興 素甜"
         },
         {
           date: "7/10 (五)",
           dayType: "weekday",
           duties: {
-            "傳道": "黃恩、翔恩、明、光",
-            "接待": "麗華、以真",
+            "傳道": "黃恩、翔恩、明光",
             "領會者": "張蓉惠",
-            "今日行程": "復興教會、鍾霖恩執事"
+            "領詩": "黃恩",
+            "司琴": "翔恩",
+            "接待一樓": "明光",
+            "接待二樓": "麗華",
+            "一樓二樓音控": "以真",
+            "當值值日": "會計股",
+            "主要行程": "復興"
           },
-          personnel: ["黃恩", "翔恩", "明", "光", "麗華", "以真", "張蓉惠", "蓉惠", "鍾霖恩"],
-          rawText: "黃恩 翔恩 明 光 麗華 以真 會計 張蓉惠 復興 鍾霖恩 學生靈恩會分享見證會"
+          personnel: ["張蓉惠", "蓉惠", "黃恩", "翔恩", "明光", "麗華", "以真"],
+          rawText: "張蓉惠 黃恩 翔恩 明光 麗華 以真 會計 復興"
         },
         {
           date: "7/11 (六) 安息日",
           dayType: "sabbath",
           duties: {
-            "禱告會": "上午 9:30~50 / 下午 1:30~50 (讀經: 詩篇101)",
-            "領會與人員": "鍾要、靈生、文聰、秀花、孝偉",
-            "資訊宣道": "資訊股、宣道股",
-            "愛餐炊事": "炊事組第五組、麗華、立學",
-            "接待行程": "梁秀娟",
-            "來訪教會": "豐原教會中堅迦勒團契 37人 (六上)"
+            "禱告會": "上午 9:30~50 / 下午 1:30~50 (讀經: 十大信條、詩篇)",
+            "帶領禱告": "訪問團",
+            "領讀": "同恩",
+            "謝飯": "鴻霖",
+            "領會者": "鍾霖恩",
+            "領詩": "梁秀娟",
+            "司琴": "鍾媐",
+            "接待一樓": "可芩",
+            "接待二樓": "靈生",
+            "一樓二樓音控": "翔恩、文聰",
+            "當值值日": "教牧、資訊、宣道 (明光、秀花、素花)",
+            "傳道/配合": "孝偉、鴻霖",
+            "愛餐午餐": "炊事組第五組",
+            "晚餐": "麗華、立學",
+            "主要行程": "雪霧鬧 / 豐原教會中堅迦勒團契 37人 (六上)"
           },
-          personnel: ["鍾要", "靈生", "文聰", "林文聰", "秀花", "孝偉", "梁秀娟", "麗華", "立學", "王鴻志", "林茜葦"],
-          rawText: "鍾要 靈生 文聰 秀花 孝偉 資訊 宣道 訪問團 梁秀娟 詩 101 炊事組第五組 麗華 立學 豐原"
+          personnel: ["鍾霖恩", "霖恩", "梁秀娟", "鍾媐", "可芩", "林可芩", "靈生", "翔恩", "文聰", "林文聰", "明光", "秀花", "素花", "孝偉", "鴻霖", "同恩", "立學", "麗華"],
+          rawText: "鍾霖恩 梁秀娟 鍾媐 可芩 靈生 翔恩 文聰 明光 秀花 素花 孝偉 鴻霖 教牧資訊 雪霧鬧 訪問團 同恩 鴻霖 炊事組第五組 麗華 立學"
         },
         {
           date: "7/12 (日)",
           dayType: "sunday",
           duties: {
-            "今日人員": "可芩、翔恩、明、光、素花",
-            "音控/當值": "鴻霖、資訊股",
-            "主要行程": "家庭團契：屋簷下的時光 (裡冷) / 黃但以理"
+            "主要行程": "家庭團契：屋簷下的時光 (裡冷)"
           },
-          personnel: ["可芩", "林可芩", "翔恩", "明", "光", "素花", "鴻霖", "黃但以理", "林茜葦"],
-          rawText: "可芩 翔恩 明 光 素花 鴻霖 資訊 家庭團契 屋簷下的時光 裡冷 黃但以理"
+          personnel: [],
+          rawText: "家庭團契:屋簷下的時光 裡冷"
         },
         {
           date: "7/13 (一)",
           dayType: "weekday",
           duties: {
-            "傳道": "牧言",
-            "接待": "蓉惠",
-            "領會者": "小嬌",
-            "領詩": "翠玉",
-            "司琴": "以真",
-            "音控與當值": "宣道股 (雪霧鬧)"
+            "傳道": "小嬌",
+            "領會者": "黃但以理",
+            "領詩": "牧言",
+            "司琴": "蓉惠",
+            "接待一樓": "小嬌",
+            "接待二樓": "翠玉",
+            "一樓二樓音控": "以真",
+            "當值值日": "宣道股",
+            "主要行程": "雪霧鬧"
           },
-          personnel: ["牧言", "蓉惠", "張蓉惠", "小嬌", "翠玉", "談翠玉", "以真"],
-          rawText: "牧言 蓉惠 小嬌 翠玉 以真 宣道 雪霧鬧"
+          personnel: ["黃但以理", "牧言", "蓉惠", "張蓉惠", "小嬌", "翠玉", "談翠玉", "以真"],
+          rawText: "黃但以理 牧言 蓉惠 小嬌 翠玉 以真 宣道 雪霧鬧"
         },
         {
           date: "7/14 (二)",
           dayType: "weekday",
           duties: {
-            "宣道訪問": "雪霧鬧教會訪問行程"
+            "主要行程": "宣道訪問 (雪霧鬧)"
           },
           personnel: [],
-          rawText: "訪問 雪霧鬧"
+          rawText: "訪 問 雪霧鬧"
         },
         {
           date: "7/15 (三)",
           dayType: "weekday",
           duties: {
-            "主要同工": "鍾霖恩、黃恩、林茜葦、牧、黃昕、茜葦",
-            "音控/接待": "文聰、琬珊、凱恩",
-            "當值與地點": "教育股、雪霧鬧 (楊晟譽弟兄宅)"
+            "主要同工": "鍾霖恩、黃恩、林茜葦",
+            "領會者": "鍾霖恩",
+            "領詩": "黃恩",
+            "司琴": "茜葦",
+            "接待一樓": "文聰",
+            "接待二樓": "琬珊",
+            "一樓二樓音控": "凱恩",
+            "當值值日": "教育股",
+            "主要行程": "雪霧鬧"
           },
-          personnel: ["鍾霖恩", "黃恩", "林茜葦", "黃昕", "茜葦", "文聰", "林文聰", "琬珊", "黃琬珊", "凱恩", "楊凱恩", "楊晟譽"],
-          rawText: "鍾霖恩 黃恩 林茜葦 牧 黃昕 茜葦 文聰 琬珊 凱恩 教育 雪霧鬧 楊晟譽弟兄宅"
+          personnel: ["鍾霖恩", "霖恩", "黃恩", "茜葦", "林茜葦", "文聰", "林文聰", "琬珊", "黃琬珊", "凱恩", "楊凱恩"],
+          rawText: "鍾霖恩 黃恩 茜葦 文聰 琬珊 凱恩 教育 雪霧鬧"
         },
         {
           date: "7/16 (四)",
           dayType: "weekday",
           duties: {
-            "主要人員": "霖、曉玲、可芩",
-            "接待領會": "張蓉惠",
-            "音控與值日": "事務股、出納股 (雪霧鬧)"
+            "主要行程": "宣道訪問（林茜葦、牧霖 往 楊晟譽弟兄宅）",
+            "聚會地點": "雪霧鬧"
           },
-          personnel: ["鍾霖恩", "曉玲", "可芩", "林可芩", "張蓉惠", "蓉惠", "黃琬珊", "楊忠生"],
-          rawText: "霖 雪霧鬧 曉玲 事務 可芩 出納 雪霧鬧 張蓉惠"
+          personnel: ["林茜葦", "茜葦", "牧霖", "楊晟譽"],
+          rawText: "林茜葦 牧霖 楊晟譽 弟兄宅 雪霧鬧"
         },
         {
           date: "7/17 (五)",
           dayType: "weekday",
           duties: {
-            "主要人員": "哲貞、立學、瑞靈、聰琳、鍾曄、茜葦",
-            "地點/值日": "八德教會、事務股",
-            "聯絡人": "王鴻志"
+            "傳道": "出納股",
+            "領會者": "張蓉惠",
+            "領詩": "黃昕",
+            "司琴": "哲貞",
+            "接待一樓": "曉玲",
+            "接待二樓": "事務股",
+            "一樓二樓音控": "可芩",
+            "當值值日": "出納股",
+            "主要行程": "雪霧鬧"
           },
-          personnel: ["哲貞", "立學", "瑞靈", "聰琳", "鍾曄", "茜葦", "林茜葦", "王鴻志", "楊忠生"],
-          rawText: "哲貞 立學 瑞靈 聰琳 鍾曄 茜葦 事務 八德 王鴻志"
+          personnel: ["張蓉惠", "蓉惠", "黃昕", "哲貞", "曉玲", "可芩", "林可芩"],
+          rawText: "張蓉惠 黃昕 哲貞 曉玲 事務 可芩 出納 雪霧鬧"
         },
         {
           date: "7/18 (六) 安息日",
           dayType: "sabbath",
           duties: {
             "禱告會": "上午 9:30~50 / 下午 1:30~50 (讀經: 詩篇101)",
-            "領會與人員": "真光、冉憶、亦豪",
-            "值日當值": "會計股、事務股",
-            "謝飯帶領": "楊凱恩、高翔、翔恩",
-            "愛餐炊事": "素甜、卉心、喜鵲、琬珊、曉玲"
+            "帶領禱告": "靈生 (詩篇101)",
+            "領讀": "陳箴",
+            "謝飯": "明光",
+            "領會者": "王鴻志",
+            "領詩": "楊凱恩",
+            "司琴": "立學",
+            "接待一樓": "高翔",
+            "接待二樓": "瑞靈",
+            "一樓二樓音控": "翔恩、聰琳",
+            "當值值日": "會計、事務 (真光、鍾曄)",
+            "傳道/配合": "冉憶、茜葦、亦豪",
+            "愛餐午餐": "素甜、卉心、喜鵲",
+            "晚餐": "琬珊、曉玲",
+            "主要行程": "八德"
           },
-          personnel: ["真光", "冉憶", "亦豪", "高亦豪", "楊凱恩", "高翔", "翔恩", "素甜", "卉心", "喜鵲", "琬珊", "黃琬珊", "曉玲", "鍾霖恩", "楊忠生"],
-          rawText: "真光 冉憶 亦豪 會計 事務 詩 101 楊凱恩 高翔 翔恩 素甜 卉心 喜鵲 琬珊 曉玲"
+          personnel: ["王鴻志", "鴻志", "楊凱恩", "凱恩", "立學", "高翔", "瑞靈", "翔恩", "聰琳", "真光", "鍾曄", "冉憶", "茜葦", "林茜葦", "亦豪", "高亦豪", "靈生", "陳箴", "明光", "素甜", "卉心", "喜鵲", "琬珊", "黃琬珊", "曉玲"],
+          rawText: "王鴻志 楊凱恩 立學 高翔 瑞靈 翔恩 聰琳 真光 鍾曄 冉憶 茜葦 亦豪 事務 會計 八德 靈生 陳箴 明光 素甜 卉心 喜鵲 琬珊 曉玲"
         },
         {
-          date: "7/19 (日) - 7/21 (二)",
+          date: "7/19 (日)",
+          dayType: "sunday",
+          duties: {
+            "主要行程": "教牧區：出訪東部三天二夜"
+          },
+          personnel: [],
+          rawText: "出訪東部三天二夜"
+        },
+        {
+          date: "7/20 (一)",
+          dayType: "weekday",
+          duties: {
+            "主要行程": "教牧區：出訪東部三天二夜"
+          },
+          personnel: [],
+          rawText: "出訪東部三天二夜"
+        },
+        {
+          date: "7/21 (二)",
           dayType: "weekday",
           duties: {
             "主要行程": "教牧區：出訪東部三天二夜"
@@ -469,46 +547,67 @@
           date: "7/22 (三)",
           dayType: "weekday",
           duties: {
-            "主要人員": "杜建明、麗華、茜葦、忠生、翔恩、霖恩",
-            "值日行程": "教牧股 (裡冷教會)"
+            "領會者": "杜建明",
+            "領詩": "麗華",
+            "司琴": "茜葦",
+            "接待一樓": "忠生",
+            "接待二樓": "翔恩",
+            "一樓二樓音控": "霖恩",
+            "當值值日": "教牧股",
+            "主要行程": "裡冷"
           },
-          personnel: ["杜建明", "麗華", "茜葦", "林茜葦", "忠生", "楊忠生", "翔恩", "霖恩", "鍾霖恩", "梁秀娟"],
-          rawText: "裡冷 杜建明 麗華 茜葦 忠生 翔恩 霖恩 教牧"
+          personnel: ["杜建明", "麗華", "茜葦", "林茜葦", "忠生", "楊忠生", "翔恩", "霖恩", "鍾霖恩"],
+          rawText: "杜建明 麗華 茜葦 忠生 翔恩 霖恩 教牧 裡冷"
         },
         {
           date: "7/23 (四)",
           dayType: "weekday",
           duties: {
-            "主要同工": "談翠玉、杜芯",
-            "地點/行程": "大灣教會 (陳宇昇弟兄宅)"
+            "主要行程": "宣道訪問（談翠玉、杜芯 往 陳宇昇弟兄宅）",
+            "聚會地點": "大灣"
           },
           personnel: ["談翠玉", "翠玉", "杜芯", "陳宇昇"],
-          rawText: "大灣 陳宇昇弟兄宅 談翠玉 杜芯"
+          rawText: "談翠玉 杜芯 陳宇昇 弟兄 宅 大灣"
         },
         {
           date: "7/24 (五)",
           dayType: "weekday",
           duties: {
-            "主要同工": "梁娟、陳箴、曉玲、胡夢凡、琬珊",
-            "值日行程": "以真、教育股 (大灣教會)"
+            "傳道": "以真",
+            "領會者": "胡夢凡",
+            "領詩": "琬珊",
+            "司琴": "陳箴",
+            "接待一樓": "曉玲",
+            "接待二樓": "梁娟",
+            "一樓二樓音控": "以真",
+            "當值值日": "教育股",
+            "主要行程": "大灣"
           },
-          personnel: ["梁娟", "陳箴", "曉玲", "胡夢凡", "夢凡", "琬珊", "黃琬珊", "以真", "張蓉惠", "梁秀娟"],
-          rawText: "以真 教育 大灣 梁娟 陳箴 曉玲 胡夢凡 琬珊"
+          personnel: ["胡夢凡", "夢凡", "琬珊", "黃琬珊", "陳箴", "曉玲", "梁娟", "以真"],
+          rawText: "胡夢凡 琬珊 陳箴 曉玲 梁娟 以真 教育 大灣"
         },
         {
           date: "7/25 (六) 安息日",
           dayType: "sabbath",
           duties: {
             "禱告會": "上午 9:30~50 / 下午 1:30~50 (讀經: 詩篇102)",
-            "領會人員": "喜鵲、可芩、助理會計",
-            "謝飯帶領": "翔恩、翠玉、立學",
-            "炊事愛餐": "素花、麗華、秀花、蓉惠、夢凡",
-            "下午行程": "百周年詩歌觀摩練詩於崎頂",
-            "大灣同工": "鍾旻、翔恩、忠生、秀花、杜建明",
-            "來訪教會": "沙鹿教會青教組 15人 (六下)"
+            "帶領禱告": "翔恩 (詩篇102)",
+            "領讀": "翠玉",
+            "謝飯": "立學",
+            "領會者": "陳秋琳",
+            "領詩": "杜建明",
+            "司琴": "蓉惠",
+            "接待一樓": "鍾媐",
+            "接待二樓": "靈生",
+            "一樓二樓音控": "翔恩、真光",
+            "當值值日": "教牧、教育、會計、事務 (忠生、喜鵲)",
+            "傳道/配合": "秀花、可芩、翔恩",
+            "愛餐午餐": "素花、麗華、秀花",
+            "晚餐": "蓉惠、夢凡",
+            "主要行程": "大灣 / 沙鹿教會青教組 15人 (六下) / 百周年詩歌觀摩練詩於崎頂"
           },
-          personnel: ["喜鵲", "可芩", "林可芩", "翔恩", "翠玉", "談翠玉", "立學", "素花", "麗華", "秀花", "蓉惠", "張蓉惠", "夢凡", "胡夢凡", "鍾旻", "忠生", "楊忠生", "杜建明", "鍾霖恩"],
-          rawText: "喜鵲 可芩 會計 25 教牧 教育 詩102 翔恩 翠玉 立學 大灣 鍾旻 翔恩 忠生 秀花 翔恩 事務 杜建明 大灣 素花 麗華 秀花 蓉惠 夢凡"
+          personnel: ["陳秋琳", "杜建明", "蓉惠", "張蓉惠", "鍾媐", "靈生", "翔恩", "真光", "忠生", "楊忠生", "喜鵲", "秀花", "可芩", "林可芩", "翠玉", "談翠玉", "立學", "素花", "麗華", "夢凡", "胡夢凡"],
+          rawText: "陳秋琳 杜建明 蓉惠 鍾媐 靈生翔恩 真光 忠生 喜鵲 秀花 可芩 翔恩 會計事務 大灣 翔恩 翠玉 立學 素花 麗華 秀花 蓉惠 夢凡"
         },
         {
           date: "7/26 (日)",
@@ -517,208 +616,123 @@
             "主要行程": "家庭團契：屋簷下的時光 (大灣)"
           },
           personnel: [],
-          rawText: "大灣 家庭團契 屋簷下的時光"
+          rawText: "家庭團契:屋簷下的時光 大灣"
         },
         {
           date: "7/27 (一)",
           dayType: "weekday",
           duties: {
-            "傳道": "宣道股、宣道股",
-            "接待": "鍾清章",
-            "領會者": "翔恩、哲貞",
-            "領詩": "文聰",
-            "司琴/音控": "冉憶、茜葦",
-            "主要行程": "總會辦公室、北埔教會中餐 80 人接待"
+            "傳道": "總會",
+            "領會者": "鍾清章",
+            "領詩": "翔恩",
+            "司琴": "哲貞",
+            "接待一樓": "文聰",
+            "接待二樓": "冉憶",
+            "一樓二樓音控": "茜葦",
+            "當值值日": "宣道股",
+            "主要行程": "總會 / 北埔教會中餐 80人接待"
           },
-          personnel: ["鍾清章", "翔恩", "哲貞", "文聰", "林文聰", "冉憶", "茜葦", "林茜葦", "王鴻志"],
-          rawText: "宣道 宣道 鍾清章 翔恩 哲貞 文聰 冉憶 茜葦 總會"
+          personnel: ["鍾清章", "翔恩", "哲貞", "文聰", "林文聰", "冉憶", "茜葦", "林茜葦"],
+          rawText: "鍾清章 翔恩 哲貞 文聰 冉憶 茜葦 宣道 總會"
         },
         {
           date: "7/28 (二)",
           dayType: "weekday",
           duties: {
-            "今日人員": "冉憶、翠玉、亦豪",
-            "今日行程": "總會行程、宣道訪問、王鴻志",
-            "當值人員": "資訊股"
+            "主要行程": "宣道股訪問 / 傳道休假",
+            "當值值日": "資訊股",
+            "配合人員": "王鴻志 (行程-總會)"
           },
-          personnel: ["冉憶", "翠玉", "談翠玉", "亦豪", "高亦豪", "王鴻志", "林茜葦"],
-          rawText: "總會 訪問 總會 冉憶 翠玉 亦豪 資訊 王鴻志"
+          personnel: ["王鴻志", "鴻志"],
+          rawText: "訪問 總會 王鴻志"
         },
         {
           date: "7/29 (三)",
           dayType: "weekday",
           duties: {
-            "主要同工": "牧霖、蓉惠、休假、王塞特",
-            "宣道訪問": "鐘卉晴姐妹宅、黃昕",
-            "行程地點": "總會、大溪"
+            "主要人員": "王鴻志、牧霖",
+            "領會者": "王鴻志",
+            "領詩": "牧霖",
+            "司琴": "蓉惠",
+            "接待一樓": "冉憶",
+            "接待二樓": "翠玉",
+            "一樓二樓音控": "亦豪",
+            "當值值日": "資訊股",
+            "主要行程": "總會 / 青少年福音營分享見證會"
           },
-          personnel: ["牧霖", "蓉惠", "張蓉惠", "王塞特", "鐘卉晴", "黃昕"],
-          rawText: "總會 訪問 牧霖 蓉惠 休假 王塞特 鐘卉晴 黃昕"
+          personnel: ["王鴻志", "鴻志", "牧霖", "蓉惠", "張蓉惠", "冉憶", "翠玉", "談翠玉", "亦豪", "高亦豪"],
+          rawText: "王鴻志 牧霖 蓉惠 冉憶 翠玉 亦豪 資訊 總會"
         },
         {
           date: "7/30 (四)",
           dayType: "weekday",
           duties: {
-            "今日行程": "傳道休假與例行關懷"
+            "主要行程": "宣道訪問（王塞特、黃昕 往 鐘卉晴姐妹宅）",
+            "傳道行程": "休假"
           },
-          personnel: [],
-          rawText: "休假 訪問"
+          personnel: ["王塞特", "黃昕", "鐘卉晴"],
+          rawText: "王塞特 黃昕 鐘卉晴姐妹 宅 休假"
         },
         {
           date: "7/31 (五)",
           dayType: "weekday",
           duties: {
-            "領會人員": "光、小嬌、凱恩",
-            "同工行程": "黃恩、翔恩、明、陳義道傳道",
-            "當值股別": "教牧股 (大溪教會)"
+            "傳道": "陳義道",
+            "領會者": "陳義道",
+            "領詩": "黃恩",
+            "司琴": "翔恩",
+            "接待一樓": "明光",
+            "接待二樓": "小嬌",
+            "一樓二樓音控": "凱恩",
+            "當值值日": "教牧股",
+            "主要行程": "大溪"
           },
-          personnel: ["光", "小嬌", "凱恩", "楊凱恩", "黃恩", "翔恩", "明", "陳義道", "梁秀娟"],
-          rawText: "光 小嬌 凱恩 教牧 大溪 黃恩 翔恩 明 五 陳義道"
+          personnel: ["陳義道", "黃恩", "翔恩", "明光", "小嬌", "凱恩", "楊凱恩"],
+          rawText: "陳義道 黃恩 翔恩 明光 小嬌 凱恩 教牧 大溪"
         }
       ],
-      // 其他重大活動清單 (教區、小區、總會活動)
       activities: [
-        {
-          date: "7/1 (三) - 7/6 (一)",
-          category: "總會教區事工",
-          title: "國高學生靈恩會",
-          desc: "國中班靈恩會於崎頂教會，高中班靈恩會於裡冷教會",
-          personnel: []
-        },
-        {
-          date: "7/2 (四) - 7/3 (五)",
-          category: "教會牧區事工",
-          title: "協助國中班學靈會炊事",
-          desc: "前往崎頂支援國中班學生靈恩會炊事膳食",
-          personnel: ["李永賢", "同恩", "林茜葦", "林文聰", "談翠玉", "林可芩", "文聰", "翠玉", "可芩", "茜葦"]
-        },
-        {
-          date: "7/4 (六)",
-          category: "教會牧區事工",
-          title: "同工禱告會暨負責人會",
-          desc: "安息日下午聚會後召開重要同工會議",
-          personnel: []
-        },
-        {
-          date: "7/10 (五)",
-          category: "教會牧區事工",
-          title: "學生靈恩會分享見證會",
-          desc: "於聚會中分享見證，歡迎同工參加",
-          personnel: []
-        },
-        {
-          date: "7/11 (六) - 7/12 (日)",
-          category: "總會教區事工",
-          title: "聖職人員夫婦靈修會",
-          desc: "於裡冷教會舉辦聖職人員靈修活動",
-          personnel: []
-        },
-        {
-          date: "7/14 (二) - 7/17 (五)",
-          category: "總會教區事工",
-          title: "少特班靈恩會",
-          desc: "少年特別班靈恩會，地點設於雪霧鬧教會",
-          personnel: []
-        },
-        {
-          date: "7/17 (五)",
-          category: "教會牧區事工",
-          title: "少特班分享見證會",
-          desc: "少特班靈恩會分享見證聚會",
-          personnel: []
-        },
-        {
-          date: "7/19 (日)",
-          category: "總會教區事工",
-          title: "婚姻介紹人研討會",
-          desc: "婚姻介紹與輔導研討活動，地點：望美教會",
-          personnel: []
-        },
-        {
-          date: "7/19 (日) - 7/21 (二)",
-          category: "教會牧區事工",
-          title: "出訪東部三天二夜",
-          desc: "大溪教會訪問東部小區及教區之遊訪行程",
-          personnel: []
-        },
-        {
-          date: "7/23 (四) - 7/26 (日)",
-          category: "總會教區事工",
-          title: "青少年福音營",
-          desc: "青少年福音營，地點設於大灣教會",
-          personnel: []
-        },
-        {
-          date: "7/25 (六)",
-          category: "教會牧區事工",
-          title: "百周年詩歌觀摩練詩",
-          desc: "下午於崎頂教會進行百周年詩歌練詩觀摩",
-          personnel: []
-        },
-        {
-          date: "7/29 (三)",
-          category: "教會牧區事工",
-          title: "青少年福音營分享見證",
-          desc: "福音營結束後之蒙恩分享見證會",
-          personnel: []
-        },
-        {
-          date: "7/31 (五) - 8/2 (日)",
-          category: "總會教區事工",
-          title: "全區方舟團契聚會",
-          desc: "全區方舟團契聚會，地點：南寮教會",
-          personnel: []
-        },
-        {
-          date: "7/1 (三)",
-          category: "外出領會",
-          title: "陳微慎 協助桃山教會",
-          desc: "陳微慎前往桃山教會領會與事工協助",
-          personnel: ["陳微慎"]
-        },
-        {
-          date: "7/6 (一)",
-          category: "外出領會",
-          title: "陳微慎 協助復興教會",
-          desc: "陳微慎前往復興教會協助領會",
-          personnel: ["陳微慎"]
-        },
-        {
-          date: "7/18 (六)",
-          category: "外出領會",
-          title: "陳微慎 協助復興教會",
-          desc: "陳微慎前往復興教會協助領會",
-          personnel: ["陳微慎"]
-        },
-        {
-          date: "7/25 (六)",
-          category: "外出領會",
-          title: "陳微慎 協助崎頂教會",
-          desc: "陳微慎前往崎頂教會協助領會",
-          personnel: ["陳微慎"]
-        }
+        { date: "7/1 (三) - 7/6 (一)", category: "總會教區事工", title: "國高學生靈恩會", desc: "國中班靈恩會於崎頂，高中班靈恩會於裡冷", personnel: [] },
+        { date: "7/2 (四) - 7/3 (五)", category: "教會牧區事工", title: "協助國中班學靈會炊事", desc: "前往崎頂支援國中班學生靈恩會炊事膳食", personnel: ["李永賢", "同恩", "林茜葦", "林文聰", "談翠玉", "林可芩", "文聰", "翠玉", "可芩", "茜葦"] },
+        { date: "7/4 (六)", category: "教會牧區事工", title: "同工禱告會暨負責人會", desc: "安息日下午聚會後召開重要同工會議", personnel: [] },
+        { date: "7/4 (六)", category: "教會牧區事工", title: "社青團契課程", desc: "大溪社青團契專業課程訓練", personnel: [] },
+        { date: "7/10 (五)", category: "教會牧區事工", title: "學生靈恩會分享見證會", desc: "於聚會中分享見證，歡迎同工參加", personnel: [] },
+        { date: "7/11 (六) - 7/12 (日)", category: "總會教區事工", title: "聖職人員夫婦靈修會", desc: "於裡冷教會舉辦聖職人員夫婦靈修活動", personnel: [] },
+        { date: "7/14 (二) - 7/17 (五)", category: "總會教區事工", title: "少特班靈恩會", desc: "少年特別班靈恩會，地點設於雪霧鬧教會", personnel: [] },
+        { date: "7/17 (五)", category: "教會牧區事工", title: "少特班分享見證會", desc: "少特班靈恩會分享見證聚會", personnel: [] },
+        { date: "7/19 (日)", category: "總會教區事工", title: "婚姻介紹人研討會", desc: "婚姻介紹與輔導研討活動，地點：望美教會", personnel: [] },
+        { date: "7/19 (日) - 7/21 (二)", category: "教會牧區事工", title: "出訪東部三天二夜", desc: "大溪教會訪問東部小區及教區之遊訪行程", personnel: [] },
+        { date: "7/23 (四) - 7/26 (日)", category: "總會教區事工", title: "青少年福音營", desc: "青少年福音營，地點設於大灣教會", personnel: [] },
+        { date: "7/25 (六)", category: "教會牧區事工", title: "百周年詩歌觀摩練詩", desc: "下午於崎頂教會進行百周年詩歌練詩觀摩", personnel: [] },
+        { date: "7/29 (三)", category: "教會牧區事工", title: "青少年福音營分享見證", desc: "福音營結束後之蒙恩分享見證會", personnel: [] },
+        { date: "7/31 (五) - 8/2 (日)", category: "總會教區事工", title: "全區方舟團契聚會", desc: "全區方舟團契聚會，地點：南寮教會", personnel: [] },
+        { date: "7/1 (三)", category: "外出領會", title: "陳微慎 協助桃山教會", desc: "陳微慎前往桃山教會領會與事工協助", personnel: ["陳微慎"] },
+        { date: "7/6 (一)", category: "外出領會", title: "陳微慎 協助復興教會", desc: "陳微慎前往復興教會協助領會", personnel: ["陳微慎"] },
+        { date: "7/18 (六)", category: "外出領會", title: "陳微慎 協助復興教會", desc: "陳微慎前往復興教會協助領會", personnel: ["陳微慎"] },
+        { date: "7/25 (六)", category: "外出領會", title: "陳微慎 協助崎頂教會", desc: "陳微慎前往崎頂教會協助領會", personnel: ["陳微慎"] }
       ]
     };
 
     let currentSelectedWorker = "";
     let eventsCollapsed = true;
+    let adminOpen = false;
 
     // 初始化頁面
     window.onload = function() {
       initPageFromConfig();
       renderFullSchedule('all');
       renderActivities();
+      fillAdminFields();
     };
 
-    // 從設定物件初始化頁面文字與基本按鈕
+    // 初始化頁面基本元素
     function initPageFromConfig() {
-      // 1. 頂部資訊
       document.getElementById('header-badge').innerText = `${CHURCH_CONFIG.year}年${CHURCH_CONFIG.month}月份`;
       document.getElementById('header-verse').innerText = CHURCH_CONFIG.bibleVerse.text;
       document.getElementById('header-verse-src').innerText = CHURCH_CONFIG.bibleVerse.source;
       document.getElementById('calendar-title-badge').innerText = `${CHURCH_CONFIG.month}月份 每日事工一覽表`;
 
-      // 2. 來訪團契列表
+      // 來訪團契列表
       const visitingList = document.getElementById('visiting-churches-list');
       visitingList.innerHTML = '';
       if (CHURCH_CONFIG.visitingChurches.length === 0) {
@@ -742,18 +756,17 @@
         });
       }
 
-      // 3. 常用同工快捷按鈕
+      // 常用同工快捷按鈕
       const searchRolesWrapper = document.getElementById('quick-search-roles');
       searchRolesWrapper.innerHTML = '';
       CHURCH_CONFIG.quickSearchGroups.forEach(group => {
         let buttonsHtml = '';
         group.workers.forEach(worker => {
-          // 根據組別配顏色
           let btnClass = "bg-slate-100 hover:bg-slate-200 text-slate-700";
           if (group.title.includes("🎵")) btnClass = "bg-blue-50 hover:bg-blue-100 text-blue-700";
           if (group.title.includes("🍲")) btnClass = "bg-emerald-50 hover:bg-emerald-100 text-emerald-700";
 
-          buttonsHtml += `<button onclick="quickSearch('${worker}')" class="px-2 py-1 text-xs rounded-lg transition-all font-medium ${btnClass}">${worker}</button>`;
+          buttonsHtml += `<button onclick="quickSearch('${worker}')" class="px-2.5 py-1 text-xs rounded-lg transition-all font-medium ${btnClass}">${worker}</button>`;
         });
 
         searchRolesWrapper.innerHTML += `
@@ -766,7 +779,7 @@
         `;
       });
 
-      // 4. 聯絡簿
+      // 聯絡簿
       const contactList = document.getElementById('contact-list');
       contactList.innerHTML = '';
       CHURCH_CONFIG.contacts.forEach(contact => {
@@ -779,7 +792,15 @@
       });
     }
 
-    // 切換頁籤
+    // 後台基本輸入框設定
+    function fillAdminFields() {
+      document.getElementById('config-year').value = CHURCH_CONFIG.year;
+      document.getElementById('config-month').value = CHURCH_CONFIG.month;
+      document.getElementById('config-verse').value = CHURCH_CONFIG.bibleVerse.text;
+      document.getElementById('config-verse-src').value = CHURCH_CONFIG.bibleVerse.source;
+    }
+
+    // 頁籤切換
     function switchTab(tabId) {
       const tabs = ['search', 'calendar', 'events'];
       tabs.forEach(t => {
@@ -797,13 +818,13 @@
       });
     }
 
-    // 快捷姓名點選
+    // 快捷點擊搜尋
     function quickSearch(name) {
       document.getElementById('searchInput').value = name;
       handleSearchInput();
     }
 
-    // 搜尋輸入監聽
+    // 搜尋欄位即時偵測
     function handleSearchInput() {
       const q = document.getElementById('searchInput').value.trim();
       const clearBtn = document.getElementById('clearBtn');
@@ -817,7 +838,6 @@
       }
     }
 
-    // 清除搜尋
     function clearSearch() {
       document.getElementById('searchInput').value = '';
       document.getElementById('clearBtn').classList.add('hidden');
@@ -830,20 +850,32 @@
       currentSelectedWorker = "";
     }
 
-    // 執行個人事工彙整搜尋
+    // 🧠 核心搜尋與彙整邏輯 (智慧別名與模糊配搭)
     function performSearch(name) {
       currentSelectedWorker = name;
       const listContainer = document.getElementById('searchResultsList');
       listContainer.innerHTML = '';
 
-      // 1. 搜尋每日事工
+      // 智慧別名映射 (確保茜葦與酋葦、瑞褀與瑞祺、媐與曄均能查到)
+      let aliasList = [name];
+      if (name === "茜葦" || name === "酋葦" || name === "林茜葦" || name === "林酋葦") {
+        aliasList = ["茜葦", "酋葦", "林茜葦", "林酋葦"];
+      } else if (name === "瑞褀" || name === "瑞祺") {
+        aliasList = ["瑞褀", "瑞祺"];
+      } else if (name === "鍾媐" || name === "鍾曄") {
+        aliasList = ["鍾媐", "鍾曄", "鍾媐", "鍾曄"];
+      }
+
+      // 1. 篩選常規事工
       const matchedDays = CHURCH_CONFIG.scheduleData.filter(item => {
-        return item.personnel.some(p => p === name || p.includes(name) || name.includes(p)) || item.rawText.includes(name);
+        return item.personnel.some(p => aliasList.some(alias => p.includes(alias) || alias.includes(p))) || 
+               aliasList.some(alias => item.rawText.includes(alias));
       });
 
-      // 2. 搜尋特別活動及外出領會
+      // 2. 篩選特別活動
       const matchedActs = CHURCH_CONFIG.activities.filter(act => {
-        return act.personnel.some(p => p === name || p.includes(name) || name.includes(p));
+        return act.personnel.some(p => aliasList.some(alias => p.includes(alias) || alias.includes(p))) ||
+               aliasList.some(alias => act.title.includes(alias) || act.desc.includes(alias));
       });
 
       const totalMatches = matchedDays.length + matchedActs.length;
@@ -856,7 +888,7 @@
           </div>
         `;
       } else {
-        // 先顯示外出領會/專屬特別活動
+        // 先顯示外出領會與活動
         matchedActs.forEach(act => {
           const card = document.createElement('div');
           card.className = "bg-purple-50/70 border-l-4 border-purple-500 rounded-xl p-3 shadow-sm relative";
@@ -884,10 +916,11 @@
             badge = `<span class="bg-emerald-100 text-emerald-800 text-[9px] font-bold px-1.5 py-0.5 rounded">主日</span>`;
           }
 
-          // 找出跟這個人相關的具體細節職責
+          // 精準匹配當天具體職責
           let dutyDetailsHtml = '';
           for (const [dutyName, personnelStr] of Object.entries(day.duties)) {
-            if (personnelStr.includes(name) || name.includes(personnelStr)) {
+            const hasMatch = aliasList.some(alias => personnelStr.includes(alias) || alias.includes(personnelStr));
+            if (hasMatch) {
               dutyDetailsHtml += `
                 <div class="flex items-start text-xs mt-1">
                   <span class="font-extrabold text-blue-900 bg-blue-100/80 px-1.5 py-0.5 rounded text-[10px] shrink-0 mr-1.5">${dutyName}</span>
@@ -897,7 +930,6 @@
             }
           }
 
-          // 如果沒找到對應的細分（可能是全域參與），就列出全部
           if (!dutyDetailsHtml) {
             dutyDetailsHtml = `
               <div class="mt-1 bg-white/60 p-2 rounded border border-slate-100 space-y-1">
@@ -910,16 +942,21 @@
           } else {
             dutyDetailsHtml = `
               <div class="mt-1.5 space-y-1.5">
-                <p class="text-[9px] text-slate-400">您的具體職責：</p>
+                <p class="text-[9px] text-slate-400">您的服事項目：</p>
                 ${dutyDetailsHtml}
-                <details class="text-[11px] text-slate-500 mt-2">
-                  <summary class="cursor-pointer font-bold text-blue-600 hover:underline">查看當天完整同工表</summary>
-                  <div class="mt-1 bg-slate-50/80 p-2 rounded space-y-1 border border-slate-100">
-                    ${Object.entries(day.duties).map(([k, v]) => `
-                      <p><strong class="text-slate-600">${k}:</strong> ${v}</p>
-                    `).join('')}
-                  </div>
-                </details>
+                <div class="flex gap-2 mt-2 pt-1 border-t border-slate-100">
+                  <details class="text-[11px] text-slate-500 flex-1">
+                    <summary class="cursor-pointer font-bold text-blue-600 hover:underline">展開完整當天同工名單</summary>
+                    <div class="mt-1 bg-slate-50/80 p-2 rounded space-y-1 border border-slate-100">
+                      ${Object.entries(day.duties).map(([k, v]) => `
+                        <p><strong class="text-slate-600">${k}:</strong> ${v}</p>
+                      `).join('')}
+                    </div>
+                  </details>
+                  <button onclick="copyDayLineFormat('${day.date}')" class="text-[10px] text-emerald-600 hover:text-emerald-800 font-bold shrink-0">
+                    📋 一鍵複製今日 LINE 班表
+                  </button>
+                </div>
               </div>
             `;
           }
@@ -940,7 +977,7 @@
       document.getElementById('searchResults').classList.remove('hidden');
     }
 
-    // 複製個人班表到剪貼簿 (調用 execCommand 避免 iFrame 權限問題)
+    // 複製個人全月班表到 LINE
     function copyMySchedule() {
       if (!currentSelectedWorker) return;
       
@@ -972,8 +1009,31 @@
       });
 
       text += `※ 請提早準備服事，若需調假請盡早聯絡各股負責人。求主紀念您的辛勞！`;
+      copyToClipboardText(text);
+    }
 
-      // 建立暫時的 textarea 完成複製
+    // 一鍵複製「當天」所有事工到 LINE 格式 (格式完美對齊，傳入 LINE 超精緻)
+    function copyDayLineFormat(dateStr) {
+      const day = CHURCH_CONFIG.scheduleData.find(d => d.date === dateStr);
+      if (!day) return;
+
+      const titleEmoji = day.dayType === 'sabbath' ? '✨' : '📅';
+      let text = `📋【TJC大溪教會 ${CHURCH_CONFIG.month}月份事工安排表】\n`;
+      text += `${titleEmoji} 日期：${day.date}\n`;
+      text += `----------------------------------\n`;
+      
+      for (const [k, v] of Object.entries(day.duties)) {
+        text += `▪️ ${k}：${v}\n`;
+      }
+      
+      text += `----------------------------------\n`;
+      text += `求主紀念各位同工的辛勞與擺上，請提前預備心承接聖工！🙌`;
+
+      copyToClipboardText(text, "當日班表已複製！可直接貼到 Line 群組");
+    }
+
+    // 核心複製邏輯
+    function copyToClipboardText(text, successMsg = "班表已複製！可直接貼到 Line 群組") {
       const el = document.createElement('textarea');
       el.value = text;
       el.setAttribute('readonly', '');
@@ -985,13 +1045,12 @@
       document.body.removeChild(el);
 
       if (success) {
-        showToast("班表已複製！可直接貼到 Line 群組");
+        showToast(successMsg);
       } else {
-        showToast("複製失敗，請手動選取文字複製");
+        showToast("複製失敗，請手動複製網頁上的文字");
       }
     }
 
-    // 顯示吐司消息
     function showToast(msg) {
       const toast = document.getElementById('toast');
       const toastText = document.getElementById('toastText');
@@ -1005,7 +1064,7 @@
       }, 2500);
     }
 
-    // 渲染完整月份事工
+    // 渲染全月事工
     function renderFullSchedule(filter) {
       const container = document.getElementById('fullScheduleList');
       container.innerHTML = '';
@@ -1035,7 +1094,7 @@
         for (const [k, v] of Object.entries(day.duties)) {
           innerDuties += `
             <div class="grid grid-cols-4 py-1.5 border-b border-dashed border-slate-100 last:border-b-0 text-[11px] gap-2">
-              <span class="font-extrabold text-slate-500 shrink-0 col-span-1">${k}</span>
+              <span class="font-extrabold text-slate-500 col-span-1 shrink-0">${k}</span>
               <span class="text-slate-800 font-medium col-span-3">${v}</span>
             </div>
           `;
@@ -1050,6 +1109,11 @@
           <div class="divide-y divide-slate-100">
             ${innerDuties}
           </div>
+          <div class="mt-3 pt-2 border-t border-slate-100 text-right">
+            <button onclick="copyDayLineFormat('${day.date}')" class="text-[10px] bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-bold px-2.5 py-1 rounded transition-colors inline-flex items-center gap-1">
+              <span>📋 一鍵複製今日 LINE 班表</span>
+            </button>
+          </div>
         `;
         container.appendChild(itemDiv);
       });
@@ -1060,14 +1124,13 @@
       renderFullSchedule(val);
     }
 
-    // 渲染近期重大活動
+    // 渲染牧區活動
     function renderActivities() {
       const container = document.getElementById('activeEventsList');
       container.innerHTML = '';
 
       CHURCH_CONFIG.activities.forEach((act, index) => {
         const item = document.createElement('div');
-        // 前三個預設顯示，後面的加上隱藏 Class
         const isHidden = index >= 3 ? 'hidden extra-event' : '';
         
         let categoryColor = "bg-slate-100 text-slate-700";
@@ -1092,7 +1155,6 @@
       });
     }
 
-    // 摺疊與顯示更多活動
     function toggleMoreEvents() {
       const extraEvents = document.querySelectorAll('.extra-event');
       const toggleText = document.getElementById('toggleText');
@@ -1108,6 +1170,113 @@
         toggleText.innerText = "展開其餘事工活動";
         toggleIcon.classList.remove('rotate-180');
         eventsCollapsed = true;
+      }
+    }
+
+    function toggleAdminPanel() {
+      const content = document.getElementById('admin-panel-content');
+      const icon = document.getElementById('admin-toggle-icon');
+      adminOpen = !adminOpen;
+      if (adminOpen) {
+        content.classList.remove('hidden');
+        icon.classList.add('rotate-180');
+      } else {
+        content.classList.add('hidden');
+        icon.classList.remove('rotate-180');
+      }
+    }
+
+    // 🚀 後台從 Excel 貼上匯入
+    function importFromExcel() {
+      const pasteText = document.getElementById('excelPasteArea').value.trim();
+      if (!pasteText) {
+        showToast("請先貼上 Excel 資料！");
+        return;
+      }
+
+      const lines = pasteText.split('\n');
+      const newSchedule = [];
+      let importedCount = 0;
+
+      const stopwords = ['安息', '上午', '下午', '接待', '傳道', '領會', '領詩', '司琴', '音控', '值日', '行程', '備註', '助理', '會計', '事務', '教育', '宣道', '資訊', '出納', '教牧', '同工', '團契', '教會', '派員', '無', '無安排', '協助', '炊事', '第五組'];
+
+      lines.forEach(line => {
+        const cols = line.split('\t');
+        if (cols.length >= 2) {
+          const date = cols[0].trim();
+          const dayType = cols[1].trim();
+
+          if (!date) return;
+
+          const duties = {};
+          if (cols[2] && cols[2].trim()) duties["傳道"] = cols[2].trim();
+          if (cols[3] && cols[3].trim()) duties["接待"] = cols[3].trim();
+          if (cols[4] && cols[4].trim()) duties["領會者"] = cols[4].trim();
+          if (cols[5] && cols[5].trim()) duties["領詩"] = cols[5].trim();
+          if (cols[6] && cols[6].trim()) duties["司琴"] = cols[6].trim();
+          if (cols[7] && cols[7].trim()) duties["一樓二樓音控"] = cols[7].trim();
+          if (cols[8] && cols[8].trim()) duties["當值值日"] = cols[8].trim();
+          if (cols[9] && cols[9].trim()) duties["主要行程"] = cols[9].trim();
+
+          // 🧠 人員自動提取
+          const personnel = [];
+          const nameRegex = /[\u4e00-\u9fa5]{2,4}/g;
+          Object.values(duties).forEach(val => {
+            const matches = val.match(nameRegex);
+            if (matches) {
+              matches.forEach(m => {
+                if (!stopwords.includes(m) && !personnel.includes(m)) {
+                  personnel.push(m);
+                }
+              });
+            }
+          });
+
+          newSchedule.push({
+            date: date,
+            dayType: dayType,
+            duties: duties,
+            personnel: personnel,
+            rawText: cols.join(' ')
+          });
+          importedCount++;
+        }
+      });
+
+      if (newSchedule.length > 0) {
+        CHURCH_CONFIG.scheduleData = newSchedule;
+        CHURCH_CONFIG.year = document.getElementById('config-year').value;
+        CHURCH_CONFIG.month = document.getElementById('config-month').value;
+        CHURCH_CONFIG.bibleVerse.text = document.getElementById('config-verse').value;
+        CHURCH_CONFIG.bibleVerse.source = document.getElementById('config-verse-src').value;
+
+        initPageFromConfig();
+        renderFullSchedule('all');
+        showToast(`成功從 Excel 匯入 ${importedCount} 天事工！`);
+      } else {
+        showToast("解析失敗，請確認是否為 Excel 複製貼上格式。");
+      }
+    }
+
+    // 產生 GitHub 的全新 index.html 設定檔
+    function generateConfigCode() {
+      CHURCH_CONFIG.year = document.getElementById('config-year').value;
+      CHURCH_CONFIG.month = document.getElementById('config-month').value;
+      CHURCH_CONFIG.bibleVerse.text = document.getElementById('config-verse').value;
+      CHURCH_CONFIG.bibleVerse.source = document.getElementById('config-verse-src').value;
+
+      const configStr = `let CHURCH_CONFIG = ` + JSON.stringify(CHURCH_CONFIG, null, 2) + `;`;
+      document.getElementById('outputConfigArea').value = configStr;
+      document.getElementById('outputCodeWrapper').classList.remove('hidden');
+      showToast("程式碼產生完畢，請到下方複製！");
+    }
+
+    function copyGeneratedCode() {
+      const area = document.getElementById('outputConfigArea');
+      area.select();
+      const success = document.execCommand('copy');
+      if (success) {
+        showToast("程式碼已複製！可貼回 index.html。");
       }
     }
   </script>
