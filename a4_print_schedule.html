@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>真耶穌教會大溪教會115年7月份事工安排表 (A4列印版)</title>
+  <!-- Noto Sans TC -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      background-color: #f3f4f6;
+      color: #000;
+      line-height: 1.15;
+      font-size: 11px;
+    }
+
+    /* 頂部不列印的操作工具列 */
+    .no-print-bar {
+      background-color: #1e293b;
+      color: #fff;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .no-print-bar h2 {
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .print-btn {
+      background-color: #10b981;
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .print-btn:hover {
+      background-color: #059669;
+    }
+
+    /* A4 橫向列印容器容器 */
+    .page-container {
+      width: 297mm;
+      min-height: 210mm;
+      padding: 8mm 10mm;
+      margin: 15px auto;
+      background: white;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* 標頭區 */
+    .header {
+      text-align: center;
+      margin-bottom: 4px;
+      position: relative;
+    }
+    .header h1 {
+      font-size: 17px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: #000;
+    }
+    .header .verse {
+      font-size: 10px;
+      font-weight: 500;
+      margin-top: 1px;
+    }
+
+    /* 主體雙欄版面 */
+    .main-grid {
+      display: grid;
+      grid-template-columns: 68% 31%;
+      gap: 1%;
+      flex: 1;
+    }
+
+    /* 通用表格樣式 */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid #000;
+      table-layout: fixed;
+    }
+    th, td {
+      border: 1px solid #000;
+      padding: 1.5px 2px;
+      text-align: center;
+      font-size: 9.5px;
+      word-break: break-all;
+    }
+    th {
+      background-color: #f1f5f9;
+      font-weight: 700;
+      font-size: 9.5px;
+    }
+
+    /* 左側每日事工表細節 */
+    .daily-table th {
+      padding: 3px 1px;
+    }
+    .sabbath-row {
+      background-color: #fffbeb;
+      font-weight: bold;
+    }
+    .sunday-row {
+      background-color: #f0fdf4;
+    }
+    .sub-time {
+      font-size: 8px;
+      color: #475569;
+      display: block;
+      line-height: 1;
+    }
+
+    /* 右側特別工作區塊 */
+    .side-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .section-box {
+      border: 1px solid #000;
+      padding: 4px 6px;
+      background: #fff;
+    }
+    .section-title {
+      font-size: 10px;
+      font-weight: 900;
+      background: #e2e8f0;
+      padding: 2px 4px;
+      margin: -4px -6px 3px -6px;
+      border-bottom: 1px solid #000;
+    }
+    .section-content {
+      font-size: 9px;
+      line-height: 1.35;
+    }
+    .section-content li {
+      list-style: none;
+      margin-bottom: 1px;
+    }
+
+    /* 頁尾聯絡電話 */
+    .footer-contacts {
+      border-top: 1.5px solid #000;
+      margin-top: 4px;
+      padding-top: 3px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px 10px;
+      font-size: 8.5px;
+      text-align: center;
+    }
+    .footer-contacts div {
+      white-space: nowrap;
+    }
+
+    /* 🖨️ CSS 列印媒體查詢 (確保 100% 1 頁橫向列印) */
+    @media print {
+      @page {
+        size: A4 landscape;
+        margin: 4mm;
+      }
+      body {
+        background: white;
+      }
+      .no-print-bar {
+        display: none !important;
+      }
+      .page-container {
+        width: 100% !important;
+        height: 100vh !important;
+        margin: 0 !important;
+        padding: 2mm 4mm !important;
+        box-shadow: none !important;
+      }
+      th {
+        background-color: #f1f5f9 !important;
+        -webkit-print-color-adjust: exact;
+      }
+      .sabbath-row {
+        background-color: #fffbeb !important;
+        -webkit-print-color-adjust: exact;
+      }
+      .sunday-row {
+        background-color: #f0fdf4 !important;
+        -webkit-print-color-adjust: exact;
+      }
+      .section-title {
+        background-color: #e2e8f0 !important;
+        -webkit-print-color-adjust: exact;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 頂部列印按鈕條 -->
+  <div class="no-print-bar">
+    <h2>⛪ 真耶穌教會大溪教會 - A4 橫向紙本事工安排表</h2>
+    <button class="print-btn" onclick="window.print()">
+      <span>🖨️ 點擊立即列印 / 存為 PDF</span>
+    </button>
+  </div>
+
+  <!-- A4 列印頁面容器 -->
+  <div class="page-container">
+    
+    <!-- 1. 標題與每月金句 -->
+    <div class="header">
+      <h1>真耶穌教會 大溪教會 115 年 7 月份事工安排表</h1>
+      <div class="verse">本月分享經節：「凡你手所當做的事，要盡力去做。」（傳道書 9:10）</div>
+    </div>
+
+    <!-- 2. 主體內容：左側 31 天事工 + 右側安息日與活動看板 -->
+    <div class="main-grid">
+      
+      <!-- 左側：每日事工安排表 -->
+      <div>
+        <table class="daily-table">
+          <thead>
+            <tr>
+              <th style="width: 5%;">日期</th>
+              <th style="width: 4%;">星期</th>
+              <th style="width: 14%;">領會者<span class="sub-time">(上 / 下)</span></th>
+              <th style="width: 13%;">領詩<span class="sub-time">(上 / 下)</span></th>
+              <th style="width: 12%;">司琴<span class="sub-time">(上 / 下)</span></th>
+              <th style="width: 22%;">接待 (一樓 / 二樓)</th>
+              <th style="width: 12%;">音控<span class="sub-time">(上 / 下)</span></th>
+              <th style="width: 10%;">值日</th>
+              <th style="width: 8%;">駐牧</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>三</td><td>李永賢</td><td>同恩</td><td>茜葦</td><td>文聰 / 翠玉</td><td>可芩</td><td>資訊股</td><td>崎頂</td></tr>
+            <tr><td>2</td><td>四</td><td colspan="6" style="text-align:left; padding-left:8px;"><strong>家庭聚會：</strong>協助國中班學靈會炊事</td><td>崎頂</td></tr>
+            <tr><td>3</td><td>五</td><td>高亦豪</td><td>可芩</td><td>哲貞</td><td>曉玲 / 琬珊</td><td>鴻志</td><td>教育股</td><td>崎頂</td></tr>
+            <tr class="sabbath-row">
+              <td>4</td><td>六</td><td>陳正亮 / 陳正亮</td><td>同恩 / 瑞褀</td><td>瑞靈 / 翔恩</td><td>上:真光、秀花<br/>下:明光、喜鵲</td><td>翔恩 / 夢凡</td><td>教牧 / 事務</td><td>崎頂</td>
+            </tr>
+            <tr class="sunday-row"><td>5</td><td>日</td><td colspan="6" style="text-align:left; padding-left:8px;"><strong>家庭祭壇：</strong>家庭團契：屋簷下的時光</td><td>崎頂</td></tr>
+            <tr><td>6</td><td>一</td><td>陳木群</td><td>翔恩</td><td>蓉惠</td><td>聰琳 / 曉玲</td><td>茜葦</td><td>宣道股</td><td>崎頂</td></tr>
+            <tr><td>7</td><td>二</td><td colspan="6">宣道股訪問 / 傳道休假</td><td>休假</td></tr>
+            <tr><td>8</td><td>三</td><td>楊凱恩</td><td>同恩</td><td>牧言</td><td>小嬌 / 梁娟</td><td>亦豪</td><td>教育股</td><td>復興</td></tr>
+            <tr><td>9</td><td>四</td><td colspan="6" style="text-align:left; padding-left:8px;"><strong>家庭聚會：</strong>主領：陳微慎、杜芯 (鍾霖恩執事宅) ｜ 晚餐:素甜提供</td><td>復興</td></tr>
+            <tr><td>10</td><td>五</td><td>張蓉惠</td><td>黃恩</td><td>翔恩</td><td>明光 / 麗華</td><td>以真</td><td>會計股</td><td>復興</td></tr>
+            <tr class="sabbath-row">
+              <td>11</td><td>六</td><td>鍾霖恩 / 梁秀娟</td><td>梁秀娟 / --</td><td>靈生 / 翔恩</td><td>上:文聰、秀花<br/>下:明光、素花</td><td>孝偉 / 鴻霖</td><td>教牧 / 資訊</td><td>雪霧鬧</td>
+            </tr>
+            <tr class="sunday-row"><td>12</td><td>日</td><td colspan="6" style="text-align:left; padding-left:8px;"><strong>家庭祭壇：</strong>家庭團契：屋簷下的時光</td><td>裡冷</td></tr>
+            <tr><td>13</td><td>一</td><td>黃但以理</td><td>牧言</td><td>蓉惠</td><td>小嬌 / 翠玉</td><td>以真</td><td>宣道股</td><td>雪霧鬧</td></tr>
+            <tr><td>14</td><td>二</td><td colspan="6">宣道訪問</td><td>雪霧鬧</td></tr>
+            <tr><td>15</td><td>三</td><td>鍾霖恩</td><td>黃恩</td><td>茜葦</td><td>文聰 / 琬珊</td><td>凱恩</td><td>教育股</td><td>雪霧鬧</td></tr>
+            <tr><td>16</td><td>四</td><td colspan="6" style="text-align:left; padding-left:8px;"><strong>家庭聚會：</strong>主領：林茜葦、牧霖 (楊晟譽弟兄宅)</td><td>雪霧鬧</td></tr>
+            <tr><td>17</td><td>五</td><td>張蓉惠</td><td>黃昕</td><td>哲貞</td><td>曉玲 / 忠生</td><td>可芩</td><td>出納股</td><td>雪霧鬧</td></tr>
+            <tr class="sabbath-row">
+              <td>18</td><td>六</td><td>王鴻志 / 楊凱恩</td><td>楊凱恩 / --</td><td>瑞靈 / 翔恩</td><td>上:聰琳、鍾曄<br/>下:真光、冉憶</td><td>茜葦 / 亦豪</td><td>事務 / 會計</td><td>八德</td>
+            </tr>
+            <tr class="sunday-row"><td>19</td><td>日</td><td colspan="6" style="text-align:left; padding-left:8px;"><strong>家庭祭壇：</strong>出訪東部三天二夜</td><td>東部</td></tr>
+            <tr><td>20</td><td>一</td><td colspan="6">出訪東部三天二夜</td><td>東部</td></tr>
+            <tr><td>21</td><td>二</td><td colspan="6">出訪東部三天二夜</td><td>東部</td></tr>
+            <tr><td>22</td><td>三</td><td>杜建明</td><td>麗華</td><td>茜葦</td><td>忠生 / 翔恩</td><td>霖恩</td><td>教牧股</td><td>裡冷</td></tr>
+            <tr><td>23</td><td>四</td><td colspan="6" style="text-align:left; padding-left:8px;"><strong>家庭聚會：</strong>主領：談翠玉、杜芯 (陳宇昇弟兄宅)</td><td>大灣</td></tr>
+            <tr><td>24</td><td>五</td><td>胡夢凡</td><td>琬珊</td><td>陳箴</td><td>曉玲 / 梁娟</td><td>以真</td><td>教育股</td><td>大灣</td></tr>
+            <tr class="sabbath-row">
+              <td>25</td><td>六</td><td>陳秋琳 / 杜建明</td><td>杜建明 / --</td><td>靈生 / 翔恩</td><td>上:真光、喜鵲<br/>下:忠生、秀花</td><td>可芩 / 翔恩</td><td>會計 / 事務</td><td>大灣</td>
+            </tr>
+            <tr class="sunday-row"><td>26</td><td>日</td><td colspan="6" style="text-align:left; padding-left:8px;"><strong>家庭祭壇：</strong>家庭團契：屋簷下的時光</td><td>大灣</td></tr>
+            <tr><td>27</td><td>一</td><td>鍾清章</td><td>翔恩</td><td>哲貞</td><td>文聰 / 冉憶</td><td>茜葦</td><td>宣道股</td><td>總會</td></tr>
+            <tr><td>28</td><td>二</td><td colspan="6">宣道訪問 (王鴻志配合)</td><td>總會</td></tr>
+            <tr><td>29</td><td>三</td><td>王鴻志</td><td>牧霖</td><td>蓉惠</td><td>冉憶 / 翠玉</td><td>亦豪</td><td>資訊股</td><td>總會</td></tr>
+            <tr><td>30</td><td>四</td><td colspan="6" style="text-align:left; padding-left:8px;"><strong>家庭聚會：</strong>主領：王塞特、黃昕 (鐘卉晴姐妹宅)</td><td>休假</td></tr>
+            <tr><td>31</td><td>五</td><td>陳義道</td><td>黃恩</td><td>翔恩</td><td>明光 / 小嬌</td><td>凱恩</td><td>教牧股</td><td>大溪</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 右側：安息日特別工作與各項活動 -->
+      <div class="side-panel">
+        
+        <!-- 壹、安息日特別工作 -->
+        <div class="section-box">
+          <div class="section-title">壹、安息日各項事工</div>
+          <div style="font-size: 8.5px; margin-bottom: 3px; font-weight: bold;">
+            禱告會：上午 9:30~50 / 下午 1:30~50<br/>
+            讀經進度：十大信條、詩篇
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th style="width:12%;">日期</th>
+                <th style="width:24%;">帶領禱告</th>
+                <th style="width:20%;">讀經</th>
+                <th style="width:22%;">領讀</th>
+                <th style="width:22%;">謝飯</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>4</td><td>同恩</td><td>詩100</td><td>可芩</td><td>孝偉</td></tr>
+              <tr><td>11</td><td>訪問團</td><td>十大信條</td><td>同恩</td><td>鴻霖</td></tr>
+              <tr><td>18</td><td>靈生</td><td>詩101</td><td>陳箴</td><td>明光</td></tr>
+              <tr><td>25</td><td>翔恩</td><td>詩102</td><td>翠玉</td><td>立學</td></tr>
+            </tbody>
+          </table>
+
+          <table style="margin-top: 3px;">
+            <thead>
+              <tr>
+                <th style="width:12%;">日期</th>
+                <th style="width:44%;">愛餐午餐</th>
+                <th style="width:28%;">晚餐</th>
+                <th style="width:16%;">插花</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>4</td><td>靜美、以真、麗華</td><td>幸子、陳箴</td><td>素甜</td></tr>
+              <tr><td>11</td><td>炊事組第五組</td><td>麗華、立學</td><td>--</td></tr>
+              <tr><td>18</td><td>素甜、卉心、喜鵲</td><td>琬珊、曉玲</td><td>--</td></tr>
+              <tr><td>25</td><td>素花、麗華、秀花</td><td>蓉惠、夢凡</td><td>--</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 貳、教會及牧區事工 -->
+        <div class="section-box">
+          <div class="section-title">貳、教會及牧區事工</div>
+          <ul class="section-content">
+            <li>• 2~3日 協助國中班學生靈恩會炊事</li>
+            <li>• 4日 同工禱告會暨負責人會 / 社青團契</li>
+            <li>• 10日 學生靈恩會分享見證會</li>
+            <li>• 17日 少特班靈恩會分享見證會</li>
+            <li>• 19-21日 出訪東部三天二夜</li>
+            <li>• 25日 百周年詩歌觀摩練詩於崎頂</li>
+            <li>• 29日 青少年福音營分享見證會</li>
+          </ul>
+        </div>
+
+        <!-- 參、總會、教區及小區事工 -->
+        <div class="section-box">
+          <div class="section-title">參、總會、教區及小區事工</div>
+          <ul class="section-content">
+            <li>• 1-6日 國(崎頂)高中(裡冷)學生靈恩會</li>
+            <li>• 11-12日 聖職人員夫婦靈修會於裡冷</li>
+            <li>• 14-17日 少特班靈恩會於雪霧鬧</li>
+            <li>• 19日 婚姻介紹人研討於望美教會</li>
+            <li>• 23-26日 青少年福音營於大灣教會</li>
+            <li>• 31-8/2日 全區方舟團契聚會於南寮</li>
+          </ul>
+        </div>
+
+        <!-- 肆、外出領會 & 伍、來訪教會 -->
+        <div class="section-box">
+          <div class="section-title">肆、外出領會 & 伍、來訪教會</div>
+          <div class="section-content">
+            <strong>【外出領會】</strong><br/>
+            1日、6日、18日、25日 陳微慎協助外教會領會<br/>
+            <strong>【來訪教會】</strong><br/>
+            • 11日(六上) 豐原教會中堅迦勒團契 37人<br/>
+            • 25日(六下) 沙鹿教會青教組 15人<br/>
+            • 27日(一) 北埔教會中餐 80人
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 3. 頁尾緊急聯絡簿 -->
+    <div class="footer-contacts">
+      <div><strong>駐牧傳道</strong> 陳義道: 0934-263266</div>
+      <div><strong>宣道股</strong> 王鴻志: 0916-336821</div>
+      <div><strong>資訊股</strong> 林酋葦: 0913-326495</div>
+      <div><strong>會計股</strong> 鍾霖恩: 0972-805059</div>
+      <div><strong>教牧股</strong> 梁秀娟: 0955-070622</div>
+      <div><strong>教育股</strong> 張蓉惠: 0933-572710</div>
+      <div><strong>事務股</strong> 楊忠生: 0918-327684</div>
+      <div><strong>出納股</strong> 黃琬珊: 0953-227125</div>
+    </div>
+
+  </div>
+
+</body>
+</html>
